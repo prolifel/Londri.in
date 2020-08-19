@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">Londri.in</string>
+    <string name="app_name">londri.in</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="belum_punya_akun">Belum punya akun?</string>
+    <string name="daftar_sekarang_underline"><u>Daftar Sekarang</u></string>
+    <string name="daftar_sekarang">Daftar Sekarang</string>
+    <string name="registration">Registration</string>
+    <string name="nama">Nama</string>
+    <string name="alamat">Alamat</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="hai_user">Hai, User</string>
+    <string name="mau_laundry">Mau laundry apa sekarang ?</string>
+    <string name="laundry">Laundry</string>
+    <string name="laundry_saya">Laundry Saya</string>
+    <string name="histori_laundry">Histori Laundry</string>
+    <string name="hai">"Hai, "</string>
+    <string name="user">User</string>
+    <string name="pilih_jenis_laundry">Pilih Jenis Laundry</string>
+    <string name="cuci_baju">Cuci Baju</string>
+    <string name="cuci_batik">Cuci Batik</string>
+    <string name="cuci_selimut">Cuci Selimut</string>
+    <string name="cuci_seperai">Cuci Seperai</string>
+    <string name="cuci_sepatu">Cuci Sepatu</string>
+    <string name="cuci_karpet">Cuci Karpet</string>
+    <string name="cuci_jas">Cuci Jas</string>
 </resources>
