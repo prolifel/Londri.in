@@ -25,4 +25,6 @@
     <string name="cuci_sepatu">Cuci Sepatu</string>
     <string name="cuci_karpet">Cuci Karpet</string>
     <string name="cuci_jas">Cuci Jas</string>
+    <string name="log_out">Log Out</string>
+    <string name="icon_sekretin">Icon Sekretin</string>
 </resources>
