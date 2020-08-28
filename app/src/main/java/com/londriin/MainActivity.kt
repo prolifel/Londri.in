@@ -14,11 +14,19 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
+import org.w3c.dom.Comment
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     companion object {
         private const val TAG = "EmailPassword"
@@ -49,34 +57,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             // intent kalau klik login
             R.id.btn_login -> {
-                val email = findViewById<EditText>(R.id.input_email)
-                val password = findViewById<EditText>(R.id.input_pass)
-
-                auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success")
-                            val user = auth.currentUser
-                            updateUI(user)
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.exception)
-                            Toast.makeText(baseContext, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
-                            updateUI(null)
-                            // ...
+                if (input_email.text?.isEmpty()!! || input_pass.text?.isEmpty()!!)
+                    Toast.makeText(applicationContext, "Email dan password harus diisi", Toast.LENGTH_SHORT).show()
+                else{
+                    auth.signInWithEmailAndPassword(input_email.text.toString(), input_pass.text.toString())
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                Log.d(TAG, "signInWithEmail:success")
+                                val user = auth.currentUser
+                                updateUI(user)
+                            } else {
+                                Log.w(TAG, "signInWithEmail:failure", task.exception)
+                                Toast.makeText(baseContext, "Log in gagal. Harap masukkan email dan password yang benar", Toast.LENGTH_SHORT).show()
+                                updateUI(null)
+                            }
                         }
-                    }
+                }
             }
         }
     }
 
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        print(currentUser?.displayName)
         updateUI(currentUser)
     }
 

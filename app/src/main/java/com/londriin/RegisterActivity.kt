@@ -17,6 +17,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_jenis_laundry.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.btn_back
 
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
@@ -34,6 +38,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         val btnRegister = findViewById<Button>(R.id.btn_daftar)
         btnRegister.setOnClickListener(this)
 
+        btn_back.setOnClickListener(this)
+
         auth = Firebase.auth
         database = Firebase.database.reference
     }
@@ -41,28 +47,25 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_daftar -> {
-                val email = findViewById<EditText>(R.id.et_email)
-                val password = findViewById<EditText>(R.id.et_pass)
-                val nama = findViewById<EditText>(R.id.et_nama)
-                val alamat = findViewById<EditText>(R.id.et_alamat)
-
-                auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
+                auth.createUserWithEmailAndPassword(et_email.text.toString(), et_pass.text.toString())
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
                             val user = auth.currentUser
-                            writeNewUser(user!!.uid, nama.text.toString(), email.text.toString(), alamat.text.toString())
+
+                            // add another user's information
+                            writeNewUser(user!!.uid, et_nama.text.toString(), et_email.text.toString(), et_alamat.text.toString())
                             updateUI(user)
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                            Toast.makeText(baseContext, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this.baseContext, "Sign Up gagal", Toast.LENGTH_LONG).show()
                             updateUI(null)
                         }
-
                     }
+            }
+
+            R.id.btn_back -> {
+                finish()
             }
         }
     }
@@ -77,6 +80,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun writeNewUser(userId: String, nama: String, email: String?, alamat:String?) {
         val user = User(nama, email, alamat)
-        database.child("londri-in").child(userId).setValue(user)
+        database.child("users").child(userId).setValue(user)
     }
 }
