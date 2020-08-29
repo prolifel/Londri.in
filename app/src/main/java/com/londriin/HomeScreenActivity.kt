@@ -31,10 +31,6 @@ class HomeScreenActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_screen)
 
-        auth = Firebase.auth
-
-        database = Firebase.database.getReference("users").child(auth.uid!!)
-
         val btnLoggOut = findViewById<Button>(R.id.btn_log_out)
         btnLoggOut.setOnClickListener(this)
 
@@ -61,6 +57,10 @@ class HomeScreenActivity : AppCompatActivity(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
 
+        auth = Firebase.auth
+
+        database = Firebase.database.getReference("users").child(auth.uid!!)
+
         // reading data user
         val userListener = object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -72,6 +72,7 @@ class HomeScreenActivity : AppCompatActivity(), View.OnClickListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue<User>()
                 tv_user.text = user?.nama
+
             }
         }
 

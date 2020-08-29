@@ -78,8 +78,6 @@ class PilihMitraActivity : AppCompatActivity() {
     }
 
     private fun showSelectedType(data: Mitra) {
-        Log.d(TAG, "cokcok")
-        Toast.makeText(applicationContext, "cok", Toast.LENGTH_SHORT).show()
         val intent = Intent(this@PilihMitraActivity, PenjemputanActivity::class.java)
         startActivity(intent)
     }

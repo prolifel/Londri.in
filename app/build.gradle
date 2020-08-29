@@ -23,6 +23,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    configurations {
+        implementation.exclude module:'proto-google-common-protos'
+        implementation.exclude module:'protolite-well-known-types'
+        implementation.exclude module:'protobuf-lite'
+    }
 }
 
 dependencies {
@@ -45,6 +51,7 @@ dependencies {
 
     // Glide Implementation
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     // FirebaseUI for Firebase Realtime Database
@@ -58,6 +65,13 @@ dependencies {
 
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:6.3.0'
+
+    // Maps Implementation
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    // Place Implementation
+    implementation 'com.google.android.libraries.places:places:2.3.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
